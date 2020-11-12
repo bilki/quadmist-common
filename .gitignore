@@ -3,6 +3,7 @@
 .directory
 
 # sbt specific
+.bsp/
 .cache/
 .history/
 .lib/

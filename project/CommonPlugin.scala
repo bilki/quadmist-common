@@ -5,12 +5,12 @@ object CommonPlugin extends AutoPlugin {
 
   object autoImport {
     lazy val scalatest  = Seq(
-      "org.scalatest"     %% "scalatest"       % "3.1.2",
-      "org.scalatestplus" %% "scalacheck-1-14" % "3.1.2.0"
+      "org.scalatest"     %% "scalatest"       % "3.2.2",
+      "org.scalatestplus" %% "scalacheck-1-15" % "3.2.3.0"
     ).map(_ % Test)
-    lazy val scalacheck = "org.scalacheck" %% "scalacheck" % "1.14.1"
+    lazy val scalacheck = "org.scalacheck" %% "scalacheck" % "1.15.1"
 
-    private lazy val catsV = "2.1.1"
+    private lazy val catsV = "2.2.0"
     lazy val cats          = Seq(
       "org.typelevel" %% "cats-core",
       "org.typelevel" %% "cats-effect"
