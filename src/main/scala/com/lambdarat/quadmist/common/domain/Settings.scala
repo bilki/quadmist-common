@@ -9,8 +9,7 @@ import com.lambdarat.quadmist.common.domain.Settings.{
 
 import io.estatico.newtype.macros.newtype
 
-/**
-  * Game settings range from board size to card stats.
+/** Game settings range from board size to card stats.
   *
   * @param boardSideSize size of board side
   * @param boardMaxBlocks maximum number of board blocks

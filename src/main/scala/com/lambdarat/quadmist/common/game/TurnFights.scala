@@ -7,8 +7,7 @@ import memeid.UUID
 
 import java.time.Instant
 
-/**
-  * Actions that happened during one game turn.
+/** Actions that happened during one game turn.
   *
   * @param fights fights for this turn
   * @param playedAt instant when game turn was played

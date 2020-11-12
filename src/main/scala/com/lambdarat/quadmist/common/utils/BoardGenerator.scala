@@ -8,8 +8,7 @@ import scala.util.Random
 
 object BoardGenerator {
 
-  /**
-    * Creates a fresh free board with some random blocks on it and the red and
+  /** Creates a fresh free board with some random blocks on it and the red and
     * blue player hands of cards.
     */
   def random(redPlayer: Hand, bluePlayer: Hand, gameSettings: Settings): Board = {
@@ -35,8 +34,8 @@ object BoardGenerator {
     // Create a new grid of Free squares and then throw in the random blocks
     val squares: Grid = Array.fill(boardSideSize, boardSideSize)(Free)
 
-    coords.take(randomBlocks).foreach {
-      case (i, j) => squares(i)(j) = Block
+    coords.take(randomBlocks).foreach { case (i, j) =>
+      squares(i)(j) = Block
     }
 
     Board(squares, redPlayer, bluePlayer, gameSettings)

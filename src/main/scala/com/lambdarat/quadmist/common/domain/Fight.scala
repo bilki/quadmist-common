@@ -8,8 +8,7 @@ import memeid4s.UUID
 final case class Attacker(card: Card, coordinates: Coordinates)
 final case class Defender(card: Card, coordinates: Coordinates)
 
-/**
-  * Result of a card fight.
+/** Result of a card fight.
   *
   * @param attacker card attacking
   * @param defender card defending

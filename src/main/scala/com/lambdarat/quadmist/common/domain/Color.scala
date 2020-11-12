@@ -2,8 +2,7 @@ package com.lambdarat.quadmist.common.domain
 
 import enumeratum.values.{StringCirceEnum, StringEnum, StringEnumEntry}
 
-/**
-  * Possible colors inside game.
+/** Possible colors inside game.
   */
 sealed abstract class Color(val value: String) extends StringEnumEntry { def flip: Color }
 

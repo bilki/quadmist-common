@@ -4,8 +4,7 @@ import com.lambdarat.quadmist.common.domain.Coordinates.{XAxis, YAxis}
 
 import io.estatico.newtype.macros.newtype
 
-/**
-  * 2D coordinates
+/** 2D coordinates
   * @param x horizontal axis
   * @param y vertical axis
   */

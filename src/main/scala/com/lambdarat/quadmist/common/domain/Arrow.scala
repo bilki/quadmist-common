@@ -4,8 +4,7 @@ import com.lambdarat.quadmist.common.domain.Coordinates.{XAxis, YAxis}
 
 import enumeratum.values.{StringCirceEnum, StringEnum, StringEnumEntry}
 
-/**
-  * Card arrows.
+/** Card arrows.
   *
   * Packed representation (bits):
   *
@@ -13,7 +12,6 @@ import enumeratum.values.{StringCirceEnum, StringEnum, StringEnumEntry}
   * ---------------------------------
   * | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
   * ---------------------------------
-  *
   */
 sealed abstract class Arrow(val value: String) extends StringEnumEntry {
   def hex: Byte
@@ -34,8 +32,7 @@ object Arrow extends StringEnum[Arrow] with StringCirceEnum[Arrow] {
 
   val MAX_ARROWS: Int = values.size
 
-  /**
-    * Checks whether arrow list does not contain repeated arrows and
+  /** Checks whether arrow list does not contain repeated arrows and
     * does not exceed the number of max arrows for a card.
     *
     * @param arrows arrow list to be checked
@@ -44,8 +41,7 @@ object Arrow extends StringEnum[Arrow] with StringCirceEnum[Arrow] {
   def checkArrows(arrows: List[Arrow]): Boolean =
     arrows.distinct.size == arrows.size && arrows.size <= MAX_ARROWS
 
-  /**
-    * Get the target coordinates of the arrow, given the origin of coordinates.
+  /** Get the target coordinates of the arrow, given the origin of coordinates.
     *
     * @param arrow get coords for this arrow
     * @param origin center of coordinates
@@ -69,8 +65,7 @@ object Arrow extends StringEnum[Arrow] with StringCirceEnum[Arrow] {
     Coordinates(XAxis(newX), YAxis(newY))
   }
 
-  /**
-    * Extract a list of arrows from a packed byte.
+  /** Extract a list of arrows from a packed byte.
     *
     * @param packed a byte with packed arrows
     * @return a list with the arrows contained into the packed byte
@@ -78,8 +73,7 @@ object Arrow extends StringEnum[Arrow] with StringCirceEnum[Arrow] {
   def extract(packed: Byte): List[Arrow] =
     values.toList.filterNot(arrow => (arrow.hex & packed) == 0)
 
-  /**
-    * Compresses a list of arrows into a packed byte.
+  /** Compresses a list of arrows into a packed byte.
     *
     * @param arrows list of arrows
     * <b>Precondition:</b>

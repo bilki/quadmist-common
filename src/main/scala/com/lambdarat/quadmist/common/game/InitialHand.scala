@@ -2,8 +2,7 @@ package com.lambdarat.quadmist.common.game
 
 import com.lambdarat.quadmist.common.domain.Card
 
-/**
-  * Represents a standard 5-cards hand set of identifiers.
+/** Represents a standard 5-cards hand set of identifiers.
   */
 final case class InitialHand(
     c1: Card.Id,

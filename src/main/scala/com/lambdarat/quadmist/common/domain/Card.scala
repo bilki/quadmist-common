@@ -6,8 +6,7 @@ import enumeratum._
 import io.estatico.newtype.macros.newtype
 import memeid.UUID
 
-/**
-  * Battle class of the card.
+/** Battle class of the card.
   *
   * - Physical attacks physical def stat
   * - Magical attacks magical def stat
@@ -27,8 +26,7 @@ object BattleClass extends Enum[BattleClass] {
   case object Assault  extends BattleClass { val uiChar: Char = 'A' }
 }
 
-/**
-  * Unique card instance.
+/** Unique card instance.
   *
   * @param power offensive stat
   * @param bclass battle class

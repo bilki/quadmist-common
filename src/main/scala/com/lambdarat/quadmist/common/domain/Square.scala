@@ -2,8 +2,7 @@ package com.lambdarat.quadmist.common.domain
 
 import enumeratum.{CirceEnum, Enum, EnumEntry}
 
-/**
-  * Possible states of a square.
+/** Possible states of a square.
   */
 sealed trait Square extends EnumEntry
 

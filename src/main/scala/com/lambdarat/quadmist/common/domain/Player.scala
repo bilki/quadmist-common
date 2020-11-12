@@ -5,8 +5,7 @@ import com.lambdarat.quadmist.common.domain.Player.Name
 import io.estatico.newtype.macros.newtype
 import memeid4s.UUID
 
-/**
-  * A game player.
+/** A game player.
   *
   *  @param name name of this player
   */

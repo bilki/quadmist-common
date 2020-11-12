@@ -5,8 +5,7 @@ import com.lambdarat.quadmist.common.domain.CardClass.Name
 import io.estatico.newtype.macros.newtype
 import memeid4s.UUID
 
-/**
-  * Card class.
+/** Card class.
   *
   * @param name card name
   */
