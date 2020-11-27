@@ -1,8 +1,9 @@
 package com.lambdarat.quadmist.common.domain
 
-import com.lambdarat.quadmist.common.domain.ModelGens._
+import com.lambdarat.quadmist.common.util.DefaultSpec
+import com.lambdarat.quadmist.common.util.ModelGens._
 
-class CardSpec extends ModelSpec {
+class CardSpec extends DefaultSpec {
 
   "A card" when {
     implicit val defaultGameSettings: Settings = Settings.default

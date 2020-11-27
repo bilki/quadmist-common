@@ -1,7 +1,7 @@
 package com.lambdarat.quadmist.common.domain
 
 import com.lambdarat.quadmist.common.domain.Card.{MagicalDef, PhysicalDef, Power}
-
+import enumeratum.EnumEntry.Lowercase
 import enumeratum._
 import io.estatico.newtype.macros.newtype
 import memeid.UUID
@@ -17,13 +17,13 @@ import memeid.UUID
   */
 sealed trait BattleClass extends EnumEntry { def uiChar: Char }
 
-object BattleClass extends Enum[BattleClass] {
+object BattleClass extends Enum[BattleClass] with CirceEnum[BattleClass] {
   val values = findValues
 
-  case object Physical extends BattleClass { val uiChar: Char = 'P' }
-  case object Magical  extends BattleClass { val uiChar: Char = 'M' }
-  case object Flexible extends BattleClass { val uiChar: Char = 'X' }
-  case object Assault  extends BattleClass { val uiChar: Char = 'A' }
+  case object Physical extends BattleClass with Lowercase { val uiChar: Char = 'P' }
+  case object Magical  extends BattleClass with Lowercase { val uiChar: Char = 'M' }
+  case object Flexible extends BattleClass with Lowercase { val uiChar: Char = 'X' }
+  case object Assault  extends BattleClass with Lowercase { val uiChar: Char = 'A' }
 }
 
 /** Unique card instance.

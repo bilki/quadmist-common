@@ -1,7 +1,7 @@
-package com.lambdarat.quadmist.common.domain
+package com.lambdarat.quadmist.common.util
 
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatestplus.scalacheck.ScalaCheckDrivenPropertyChecks
 
-trait ModelSpec extends AnyWordSpec with Matchers with ScalaCheckDrivenPropertyChecks
+trait DefaultSpec extends AnyWordSpec with Matchers with ScalaCheckDrivenPropertyChecks

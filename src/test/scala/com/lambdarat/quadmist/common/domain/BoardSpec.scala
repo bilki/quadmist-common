@@ -1,9 +1,10 @@
 package com.lambdarat.quadmist.common.domain
 
-import com.lambdarat.quadmist.common.domain.ModelGens._
 import com.lambdarat.quadmist.common.domain.Square.Block
+import com.lambdarat.quadmist.common.util.DefaultSpec
+import com.lambdarat.quadmist.common.util.ModelGens._
 
-class BoardSpec extends ModelSpec {
+class BoardSpec extends DefaultSpec {
 
   "A board" when {
     implicit val boardSettings: Settings = Settings.default

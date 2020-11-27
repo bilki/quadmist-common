@@ -1,10 +1,10 @@
 package com.lambdarat.quadmist.common.domain
 
-import com.lambdarat.quadmist.common.domain.ModelGens._
-
 import cats.syntax.option._
+import com.lambdarat.quadmist.common.util.DefaultSpec
+import com.lambdarat.quadmist.common.util.ModelGens._
 
-class ArrowSpec extends ModelSpec {
+class ArrowSpec extends DefaultSpec {
   val zeroByte: Byte = 0x00
   val maxByte: Byte  = 0xff.toByte
 
@@ -43,7 +43,7 @@ class ArrowSpec extends ModelSpec {
 
     "arrows are repeated and/or size is greater than MAX_ARROWS" should {
       "return no byte" in {
-        forAll(invalidArrowsGenerator) { arrows: List[Arrow] =>
+        forAll(invalidArrowsGen) { arrows: List[Arrow] =>
           whenever(arrows.distinct.size != arrows.size || arrows.size > Arrow.MAX_ARROWS) {
             Arrow.compress(arrows) shouldBe empty
           }

@@ -1,5 +1,6 @@
 package com.lambdarat.quadmist.common
 
+import cats.implicits._
 import com.lambdarat.quadmist.common.domain.Card.{MagicalDef, PhysicalDef, Power}
 import com.lambdarat.quadmist.common.domain.Coordinates.{XAxis, YAxis}
 import com.lambdarat.quadmist.common.domain.Fight.{AttackerPoints, AttackerWins, DefenderPoints}
@@ -9,25 +10,21 @@ import com.lambdarat.quadmist.common.domain.Settings.{
   CardMaxLevel,
   MaxHandCards
 }
-import com.lambdarat.quadmist.common.domain.Square.Occupied
+import com.lambdarat.quadmist.common.domain.Square.{Block, Free, Occupied}
 import com.lambdarat.quadmist.common.domain._
 import com.lambdarat.quadmist.common.game.GameEvent.{PlayerHand, PlayerMove}
 import com.lambdarat.quadmist.common.game._
-
 import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
+import io.circe.syntax._
 import io.circe.{Decoder, Encoder}
 import memeid4s.cats.implicits._
 import memeid4s.circe.implicits.UUIDDecoderInstance
 
-import cats.implicits._
-
 package object codecs {
   /* ---- ENCODERS ---- */
   implicit val powerEncoder       = Encoder.encodeInt.contramap[Power](_.toInt)
-  implicit val battleClassEncoder = Encoder.encodeString.contramap[BattleClass](_.entryName)
   implicit val physicalDefEncoder = Encoder.encodeInt.contramap[PhysicalDef](_.toInt)
   implicit val magicalDefEncoder  = Encoder.encodeInt.contramap[MagicalDef](_.toInt)
-  implicit val arrowEncoder       = deriveEncoder[Arrow]
   implicit val cardEncoder        = deriveEncoder[Card]
 
   implicit val xaxisEncoder       = Encoder.encodeInt.contramap[XAxis](_.toInt)
@@ -49,7 +46,13 @@ package object codecs {
 
   implicit val cardClassIdEncoder = Encoder.encodeString.contramap[CardClass.Id](_.toUUID.show)
   implicit val occupiedEncoder    = deriveEncoder[Occupied]
-  implicit val squareEncoder      = deriveEncoder[Square]
+  implicit val blockEncoder       = Encoder.encodeString.contramap[Block.type](_.entryName)
+  implicit val freeEncoder        = Encoder.encodeString.contramap[Free.type](_.entryName)
+  implicit val squareEncoder      = Encoder.instance[Square] {
+    case Free               => Free.asJson
+    case Block              => Block.asJson
+    case occupied: Occupied => occupied.asJson
+  }
   implicit val boardEncoder       = deriveEncoder[Board]
 
   implicit val gameTurnEncoder     = deriveEncoder[TurnFights]
@@ -67,13 +70,20 @@ package object codecs {
   implicit val initialHandDecoder       = deriveDecoder[InitialHand]
   implicit val playerRequestHandDecoder = deriveDecoder[PlayerHand]
 
-  implicit val colorDecoder = deriveDecoder[Color]
-
   implicit val xaxisDecoder       = Decoder.decodeInt.map(XAxis.apply)
   implicit val yaxisDecoder       = Decoder.decodeInt.map(YAxis.apply)
   implicit val coordinatesDecoder = deriveDecoder[Coordinates]
 
-  implicit val arrowDecoder          = deriveDecoder[Arrow]
+  implicit val powerDecoder       = Decoder.decodeInt.map(Power.apply)
+  implicit val physicalDefDecoder = Decoder.decodeInt.map(PhysicalDef.apply)
+  implicit val magicalDefDecoder  = Decoder.decodeInt.map(MagicalDef.apply)
+  implicit val cardDecoder        = deriveDecoder[Card]
+  implicit val occupiedDecoder    = deriveDecoder[Occupied]
+
+  implicit val squareDecoder: Decoder[Square] = Decoder.decodeString
+    .emap(str => Square.withNameLowercaseOnlyEither(str).leftMap(_.notFoundName))
+    .or(occupiedDecoder.widen)
+
   implicit val playerGameMoveDecoder = deriveDecoder[GameMovement]
   implicit val playerMovementDecoder = deriveDecoder[PlayerMove]
   implicit val gameEventDecoder      = deriveDecoder[GameEvent]
