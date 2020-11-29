@@ -12,7 +12,7 @@ final case class GameMovement(
 sealed trait GameEvent
 
 object GameEvent {
-  case object PlayerJoined                        extends GameEvent
+  case class PlayerJoined(id: Player.Id)          extends GameEvent
   case class PlayerHand(initialHand: InitialHand) extends GameEvent
   case class PlayerMove(move: GameMovement)       extends GameEvent
   case class TurnTimeout(id: Player.Id)           extends GameEvent

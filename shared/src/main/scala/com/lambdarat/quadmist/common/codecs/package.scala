@@ -12,7 +12,13 @@ import com.lambdarat.quadmist.common.domain.Settings.{
 }
 import com.lambdarat.quadmist.common.domain.Square.{Block, Free, Occupied}
 import com.lambdarat.quadmist.common.domain._
-import com.lambdarat.quadmist.common.game.GameEvent.{PlayerHand, PlayerMove}
+import com.lambdarat.quadmist.common.game.GameEvent.{
+  PlayerHand,
+  PlayerMove,
+  PlayerJoined,
+  TurnTimeout,
+  GameFinished
+}
 import com.lambdarat.quadmist.common.game._
 import com.lambdarat.quadmist.common.platform.UUID
 import com.lambdarat.quadmist.common.platform.UUID._
@@ -114,9 +120,32 @@ package object codecs {
   implicit val initialHandCodec       = deriveCodec[InitialHand]
   implicit val playerRequestHandCodec = deriveCodec[PlayerHand]
 
+  implicit val playerJoinedCodec   = deriveCodec[PlayerJoined]
   implicit val playerGameMoveCodec = deriveCodec[GameMovement]
   implicit val playerMovementCodec = deriveCodec[PlayerMove]
-  implicit val gameEventCodec      = deriveCodec[GameEvent]
+  implicit val turnTimeoutCodec    = deriveCodec[TurnTimeout]
+  implicit val gameFinishedCodec   = Codec.from[GameFinished.type](
+    Decoder.decodeString.emap(str =>
+      Either.cond(str.equals("finished"), GameFinished, "Not finished")
+    ),
+    Encoder.encodeString.contramap(_ => "finished")
+  )
+  implicit val gameEventCodec      = Codec.from[GameEvent](
+    List[Decoder[GameEvent]](
+      Decoder[PlayerMove].widen,
+      Decoder[PlayerHand].widen,
+      Decoder[PlayerJoined].widen,
+      Decoder[TurnTimeout].widen,
+      Decoder[GameFinished.type].widen
+    ).reduceLeft(_ or _),
+    Encoder.instance {
+      case pj: PlayerJoined => pj.asJson
+      case ph: PlayerHand   => ph.asJson
+      case pm: PlayerMove   => pm.asJson
+      case tt: TurnTimeout  => tt.asJson
+      case GameFinished     => GameFinished.asJson
+    }
+  )
 
   implicit val gameTurnCodec  = deriveCodec[TurnFights]
   implicit val turnStateCodec = deriveCodec[TurnState]
