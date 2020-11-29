@@ -1,14 +1,15 @@
 package com.lambdarat.quadmist.common.game
 
-import enumeratum.values.{StringCirceEnum, StringEnum, StringEnumEntry}
+import enumeratum.EnumEntry.LowerCamelcase
+import enumeratum.{CirceEnum, Enum, EnumEntry}
 
-sealed abstract class GamePhase(val value: String) extends StringEnumEntry
+sealed trait GamePhase extends EnumEntry
 
-object GamePhase extends StringEnum[GamePhase] with StringCirceEnum[GamePhase] {
+object GamePhase extends Enum[GamePhase] with CirceEnum[GamePhase] {
   val values = findValues
 
-  case object Initial        extends GamePhase("initial")
-  case object PlayerBlueTurn extends GamePhase("blueTurn")
-  case object PlayerRedTurn  extends GamePhase("redTurn")
-  case object Finish         extends GamePhase("finish")
+  case object Initial  extends GamePhase with LowerCamelcase
+  case object BlueTurn extends GamePhase with LowerCamelcase
+  case object RedTurn  extends GamePhase with LowerCamelcase
+  case object Finish   extends GamePhase with LowerCamelcase
 }

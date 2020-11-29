@@ -36,7 +36,7 @@ object GameError {
   }
   final case class InvalidTransition(event: GameEvent, phase: GamePhase) extends GameError {
     override val msg: String =
-      s"Invalid transition for event:phase [${event.entryName}:${phase.enumEntry}]"
+      s"Invalid transition for event:phase [$event:${phase.enumEntry}]"
   }
   final case class InvalidEvent(error: String)                           extends GameError {
     override def msg: String = s"Invalid event [$error]"

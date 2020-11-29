@@ -21,4 +21,6 @@ object UUID {
 
   // TODO This is supposed to be a random UUID
   val nextValue: UUID = UUID("7919293f-88b9-411e-9920-57bff4c5a8cf")
+
+  def fromString(value: String): UUID = UUID(value)
 }

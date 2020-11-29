@@ -7,5 +7,8 @@ object UUID {
   implicit val decoderInstance = memeid4s.circe.instances.UUIDDecoderInstance
   implicit val encoderInstance = memeid4s.circe.instances.UUIDEncoderInstance
 
-  def nextValue: UUID = memeid4s.UUID.V4.random
+  def nextValue: UUID                 = memeid4s.UUID.V4.random
+  def fromString(value: String): UUID = memeid4s.UUID
+    .from(value)
+    .getOrElse(throw new Exception("Not valid memeid UUID"))
 }
