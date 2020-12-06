@@ -1,7 +1,6 @@
 package com.lambdarat.quadmist.common.game
 
 import com.lambdarat.quadmist.common.domain.{Card, CardClass, Player}
-import com.lambdarat.quadmist.common.platform.UUID._
 
 import cats.Show
 import cats.data.NonEmptyList

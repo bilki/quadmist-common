@@ -4,15 +4,10 @@ import sbt.plugins.JvmPlugin
 object CommonPlugin extends AutoPlugin {
 
   object autoImport {
-    private lazy val memeidV = "0.1"
-    lazy val memeid          = Seq(
-      "com.47deg" %% "memeid4s",
-      "com.47deg" %% "memeid4s-http4s",
-      "com.47deg" %% "memeid4s-cats",
-      "com.47deg" %% "memeid4s-circe",
-      "com.47deg" %% "memeid4s-scalacheck",
-      "com.47deg" %% "memeid4s-literal"
-    ).map(_ % memeidV)
+    private lazy val fuuidV = "0.4.0"
+    lazy val backendFuuid   = Seq(
+      "io.chrisdavenport" %% "fuuid-http4s"
+    ).map(_ % fuuidV)
   }
 
   override def requires: Plugins = JvmPlugin

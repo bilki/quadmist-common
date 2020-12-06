@@ -1,6 +1,5 @@
 lazy val commonSettings = Seq(
   scalaVersion := "2.13.3",
-  scalafmtAll in Compile := true,
   scalacOptions ++= Seq(
     "-Ymacro-annotations",
     "-language:higherKinds"
@@ -21,7 +20,7 @@ lazy val `quadmist-common-sub` = crossProject(JSPlatform, JVMPlatform)
   .crossType(CrossType.Full)
   .in(file("."))
   .jvmSettings(
-    libraryDependencies ++= memeid ++ scalaJSdeps.value
+    libraryDependencies ++= scalaJSdeps.value ++ backendFuuid
   )
   .jvmSettings(commonSettings)
   .jsSettings(
@@ -59,9 +58,18 @@ lazy val scalaJSdeps = Def.setting {
     "io.circe" %%% "circe-parser"
   ).map(_ % circeV)
 
+  lazy val fuuidV        = "0.4.0"
+  lazy val fuuid         = Seq(
+    "io.chrisdavenport" %%% "fuuid-circe"
+  ).map(_ % fuuidV)
+
   lazy val scalaJavatime = "io.github.cquiroz" %%% "scala-java-time" % "2.0.0"
 
-  Seq(scalaJavatime, newtype, scalacheck % Test) ++ circe ++ enumeratum ++ cats ++ scalatest
+  Seq(
+    scalaJavatime,
+    newtype,
+    scalacheck % Test
+  ) ++ circe ++ enumeratum ++ cats ++ scalatest ++ fuuid
 }
 
 addCompilerPlugin("org.typelevel" %% "kind-projector"     % "0.11.0" cross CrossVersion.full)

@@ -1,8 +1,7 @@
 package com.lambdarat.quadmist.common.domain
 
 import com.lambdarat.quadmist.common.domain.Fight.{AttackerPoints, AttackerWins, DefenderPoints}
-import com.lambdarat.quadmist.common.platform.UUID._
-
+import io.chrisdavenport.fuuid.FUUID
 import io.estatico.newtype.macros.newtype
 
 final case class Attacker(card: Card, coordinates: Coordinates)
@@ -30,5 +29,5 @@ object Fight {
   @newtype case class AttackerPoints(toInt: Int)
   @newtype case class DefenderPoints(toInt: Int)
   @newtype case class AttackerWins(toBool: Boolean)
-  @newtype case class Id(toUUID: UUID)
+  @newtype case class Id(toUUID: FUUID)
 }

@@ -13,15 +13,15 @@ import com.lambdarat.quadmist.common.domain.Settings.{
 import com.lambdarat.quadmist.common.domain.Square.{Block, Free, Occupied}
 import com.lambdarat.quadmist.common.domain._
 import com.lambdarat.quadmist.common.game.GameEvent.{
+  GameFinished,
   PlayerHand,
-  PlayerMove,
   PlayerJoined,
-  TurnTimeout,
-  GameFinished
+  PlayerMove,
+  TurnTimeout
 }
 import com.lambdarat.quadmist.common.game._
-import com.lambdarat.quadmist.common.platform.UUID
-import com.lambdarat.quadmist.common.platform.UUID._
+import io.chrisdavenport.fuuid.FUUID
+import io.chrisdavenport.fuuid.circe._
 import io.circe.generic.semiauto.deriveCodec
 import io.circe.syntax._
 import io.circe.{Codec, Decoder, Encoder}
@@ -86,7 +86,7 @@ package object codecs {
   implicit val settingsCodec       = deriveCodec[Settings]
 
   implicit val cardClassIdCodec = Codec.from[CardClass.Id](
-    Decoder[UUID].map(CardClass.Id.apply),
+    Decoder[FUUID].map(CardClass.Id.apply),
     Encoder.encodeString.contramap[CardClass.Id](_.toUUID.show)
   )
   implicit val occupiedCodec    = deriveCodec[Occupied]
@@ -109,11 +109,11 @@ package object codecs {
   )
 
   implicit val playerIdCodec = Codec.from[Player.Id](
-    Decoder[UUID].map(Player.Id.apply),
+    Decoder[FUUID].map(Player.Id.apply),
     Encoder.encodeString.contramap[Player.Id](_.toUUID.show)
   )
   implicit val cardIdCodec   = Codec.from[Card.Id](
-    Decoder[UUID].map(Card.Id.apply),
+    Decoder[FUUID].map(Card.Id.apply),
     Encoder.encodeString.contramap[Card.Id](_.toUUID.show)
   )
 

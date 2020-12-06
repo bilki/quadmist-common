@@ -1,8 +1,7 @@
 package com.lambdarat.quadmist.common.game
 
 import com.lambdarat.quadmist.common.domain.Fight
-import com.lambdarat.quadmist.common.platform.UUID._
-
+import io.chrisdavenport.fuuid.FUUID
 import io.estatico.newtype.macros.newtype
 
 import java.time.Instant
@@ -18,5 +17,5 @@ case class TurnFights(
 )
 
 object TurnFights {
-  @newtype case class Id(toUUID: UUID)
+  @newtype case class Id(toUUID: FUUID)
 }

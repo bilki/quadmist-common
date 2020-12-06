@@ -1,5 +1,6 @@
 package com.lambdarat.quadmist.common.util
 
+import cats.effect.IO
 import com.lambdarat.quadmist.common.domain.BattleClass.{Assault, Flexible, Magical, Physical}
 import com.lambdarat.quadmist.common.domain.Board.Hand
 import com.lambdarat.quadmist.common.domain.Card.{MagicalDef, PhysicalDef, Power}
@@ -7,7 +8,7 @@ import com.lambdarat.quadmist.common.domain.Color.{Blue, Red}
 import com.lambdarat.quadmist.common.domain.Square.{Block, Free, Occupied}
 import com.lambdarat.quadmist.common.domain._
 import com.lambdarat.quadmist.common.utils.BoardGenerator
-import com.lambdarat.quadmist.common.platform.UUID
+import io.chrisdavenport.fuuid.FUUID
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.{Arbitrary, Gen}
 
@@ -57,10 +58,12 @@ object ModelGens {
 
   implicit def boardArb(implicit gameSettings: Settings): Arbitrary[Board] = Arbitrary(boardGen)
 
-  private val playerIdGen: Gen[Player.Id]        = Gen.const(Player.Id(UUID.nextValue))
+  private val playerIdGen: Gen[Player.Id]        =
+    Gen.const(Player.Id(FUUID.randomFUUID[IO].unsafeRunSync()))
   implicit val playerIdArb: Arbitrary[Player.Id] = Arbitrary(playerIdGen)
 
-  private val cardClassIdGen: Gen[CardClass.Id]        = Gen.const(CardClass.Id(UUID.nextValue))
+  private val cardClassIdGen: Gen[CardClass.Id]        =
+    Gen.const(CardClass.Id(FUUID.randomFUUID[IO].unsafeRunSync()))
   implicit val cardClassIdArb: Arbitrary[CardClass.Id] = Arbitrary(cardClassIdGen)
 
   private val colorGen: Gen[Color]        = Gen.oneOf(Red, Blue)

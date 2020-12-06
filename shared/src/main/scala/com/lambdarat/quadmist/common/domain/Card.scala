@@ -1,9 +1,9 @@
 package com.lambdarat.quadmist.common.domain
 
 import com.lambdarat.quadmist.common.domain.Card.{MagicalDef, PhysicalDef, Power}
-import com.lambdarat.quadmist.common.platform.UUID._
 import enumeratum.EnumEntry.Lowercase
 import enumeratum._
+import io.chrisdavenport.fuuid._
 import io.estatico.newtype.macros.newtype
 
 /** Battle class of the card.
@@ -46,7 +46,7 @@ object Card {
   @newtype case class Power(toInt: Int)
   @newtype case class PhysicalDef(toInt: Int)
   @newtype case class MagicalDef(toInt: Int)
-  @newtype case class Id(toUUID: UUID)
+  @newtype case class Id(toUUID: FUUID)
 
   def create(
       power: Power,
